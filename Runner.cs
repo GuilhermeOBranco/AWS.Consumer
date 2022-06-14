@@ -25,21 +25,29 @@ namespace AWS.Consumer
                     Log.Information("Mensagem encontrada");
                     Log.Information(message.Body);
                 }
-                Log.Information("Mensagem(ns) lida(s) iniciando exclusão");
-
-                foreach (var message in response)
+                if (response.Count > 0)
                 {
-                    Log.Information("Deletando a mensagem {0}", message.Body);
-                    var retorno = await _SQSService.DeleteMessageFromSQS(message);
 
-                    if (retorno == HttpStatusCode.OK)
+                    Log.Information("Mensagem(ns) lida(s) iniciando exclusão");
+
+                    foreach (var message in response)
                     {
-                        Log.Information("Mensagem deletada com sucesso");
+                        Log.Information("Deletando a mensagem {0}", message.Body);
+                        var retorno = await _SQSService.DeleteMessageFromSQS(message);
+
+                        if (retorno == HttpStatusCode.OK)
+                        {
+                            Log.Information("Mensagem deletada com sucesso");
+                        }
+                        else
+                        {
+                            Log.Error("Erro ao deletar mensagem: {0}", retorno);
+                        }
                     }
-                    else
-                    {
-                        Log.Information("Erro ao deletar mensagem: {0}", retorno);
-                    }
+                }
+                else
+                {
+                    Log.Information("Nenhuma mensagem encontrada na fila");
                 }
             }
             catch (Exception ex)
