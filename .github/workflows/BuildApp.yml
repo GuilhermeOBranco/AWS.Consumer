@@ -26,6 +26,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          gh pr create --base ${{ github.ref_name }} --head develop --title "Auto PR" --body "Teste de auto PR depois do push"
+          gh pr create --base develop --head ${{ github.ref_name }} --title "Auto PR" --body "Teste de auto PR depois do push"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
