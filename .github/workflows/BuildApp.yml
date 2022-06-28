@@ -26,3 +26,5 @@ jobs:
     steps:
       - run: |
           gh pr create --base github.ref_name --head develop --title "Auto PR" --body "Teste de auto PR depois do push" 
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
