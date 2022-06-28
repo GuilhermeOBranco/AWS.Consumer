@@ -25,4 +25,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo ${{ github.ref_name }} 
+          gh pr create --base github.ref_name --head develop --title "Auto PR" --body "Teste de auto PR depois do push" 
