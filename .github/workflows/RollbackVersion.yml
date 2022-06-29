@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup .NET
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
       - name: 'Configurando .net 6'
         uses: actions/setup-dotnet@v1
         with:
@@ -24,8 +24,8 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - run: |
-          gh pr create --head ${{ github.ref_name }} --base develop --title "[Rollback] Auto PR" --body "Teste rollback branch"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        - uses: actions/checkout@v2
+        - run: |
+            gh pr create --head ${{ github.ref_name }} --base develop --title "[Rollback] Auto PR" --body "Teste rollback branch"
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
