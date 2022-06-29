@@ -1,0 +1,31 @@
+name: '[Rollback] Rollback Versao Atual Branch'
+
+on:
+  push:
+    branches:
+      - "rollback**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup .NET
+      - uses: actions/checkout@v2
+      - name: 'Configurando .net 6'
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.*
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore
+
+  rollback:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: rollback para a versão da branch ${{ github.ref_name }}
+      - run: |
+          gh pr create --head ${{ github.ref_name }} --base develop --title "[Rollback] Auto PR" --body "Teste rollback branch"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
