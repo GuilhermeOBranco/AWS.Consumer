@@ -27,7 +27,7 @@ jobs:
         - uses: actions/checkout@v2
         - run: |
             echo 'mudando para a develop' 
-            git checkout develop 
+            git checkout origin/develop 
             echo 'fazendo reset com base na branch atual'
             git reset --hard ${{ github.ref_name }}"
             git push -f
