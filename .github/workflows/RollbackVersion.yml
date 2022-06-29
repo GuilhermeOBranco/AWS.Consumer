@@ -26,6 +26,10 @@ jobs:
     steps:
         - uses: actions/checkout@v2
         - run: |
-            gh pr create --head ${{ github.ref_name }} --base develop --title "[Rollback] Auto PR" --body "Teste rollback branch"
+            echo 'mudando para a develop' 
+            git checkout develop 
+            echo 'fazendo reset com base na branch atual'
+            git reset --hard ${{ github.ref_name }}"
+            git push -f
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
