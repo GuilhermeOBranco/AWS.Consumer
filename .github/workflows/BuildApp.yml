@@ -1,0 +1,31 @@
+name: "[Build] Build Application"
+
+on:
+  push:
+    branches:
+      - "feature/**"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.*
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore
+      - name: Publish
+        run: dotnet publish
+
+  create-pr:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          gh pr create --base develop --head ${{ github.ref_name }} --title "Auto PR" --body "Teste de auto PR depois do push"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -29,6 +29,8 @@ var serviceProvider = new ServiceCollection()
 var runner = serviceProvider.GetService<IRunner>();
 runner.IniciarLeitura();
 
+//Commit para voltar
+
 Console.ReadLine();
 
 
