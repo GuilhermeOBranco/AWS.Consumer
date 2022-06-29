@@ -24,10 +24,8 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Realizando checkout
-        uses: actions/checkout@v2
-      - name: Criando PR de rollback
-        run: |
-          gh pr create --head ${{ github.ref_name }} --base develop --title "[Rollback] Auto PR" --body "Teste rollback branch"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        - uses: actions/checkout@v2
+        - run: |
+            gh pr create --head ${{ github.ref_name }} --base develop --title "[Rollback] Auto PR" --body "Teste rollback branch"
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
