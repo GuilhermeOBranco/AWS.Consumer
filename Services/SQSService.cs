@@ -19,7 +19,7 @@ namespace AWS.Consumer.Services
             _configuration = config;
             ConfigureCredentials();
         }
-
+        
         public async Task<HttpStatusCode> DeleteMessageFromSQS(Message message)
         {
             var request = new DeleteMessageRequest(creds.SQSURL, message.ReceiptHandle);
