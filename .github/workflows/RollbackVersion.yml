@@ -26,10 +26,6 @@ jobs:
     steps:
         - uses: actions/checkout@v2
         - run: |
-            echo 'mudando para a develop' 
-            git checkout origin/develop 
-            echo 'fazendo reset com base na branch atual'
-            git reset --hard ${{ github.ref_name }}"
-            git push -f
+            git merge-base ${{ github.ref_name }} develop
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
